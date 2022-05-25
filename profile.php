@@ -4,34 +4,40 @@ if (!$_SESSION['user']) {
     header('Location: /');
 }
     $errors = "";
-    $db = mysqli_connect('localhost', 'root', '', 'todo');
+    $db = mysqli_connect('localhost', 'root', '', 'sb');
     if (isset($_POST['submit'])) {
         $task = $_POST['task'];
         if (empty($task)){
             $errors = "Введите текст";
         }
         else{
-        mysqli_query($db, "INSERT INTO tasks (task) VALUES ('$task')")
+        mysqli_query($db, "INSERT INTO tasks (task) VALUES ('$task')");
         header('Location: profile.php');
         }
     }
 if (isset($_GET['del_task'])) {
     $id = $_GET['del_task'];
-    mysqli_query($db, "DELETE FROM tasks WHERE id=$id")
+    mysqli_query($db, "DELETE FROM tasks WHERE id=$id");
     header('Location: profile.php');
 }
 
     $task = mysqli_query($db,"SELECT * FROM tasks");
 ?>
 <!doctype html>
-<html>
+<html lang = "en" class = "light">
 <head>
     <title>TODO LIST</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-    <!-- Профиль -->
+    <div class="wrapper">
+        <div class="themes">
+            <label> <input type="radio" name="theme" value="light" checkdate>Light</label>
+            <label> <input type="radio" name="theme" value="dark" checkdate>Dark</label>
+        </div>
+    </div>
+</body>
     
     <div class="heading">
         <h2> TODO LIST</h2>
@@ -67,6 +73,5 @@ if (isset($_GET['del_task'])) {
     <form>
         <a href="vendor/logout.php" class="logout">Выход</a>
     </form>
-
-</body>
+                
 </html>
